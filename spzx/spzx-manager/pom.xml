@@ -11,11 +11,7 @@
 
     <artifactId>spzx-manager</artifactId>
 
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+
 
     <dependencies><!-- spring boot web开发所需要的起步依赖 -->
         <dependency>
@@ -57,5 +53,6 @@
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.4.3</version>
-        </dependency></dependencies>
+        </dependency>
+    </dependencies>
 </project>
