@@ -31,7 +31,7 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
         ValidateCodeVo validateCodeVo = new ValidateCodeVo();
         String validateCode = UUID.randomUUID().toString().replace("-", "");
         //将code和validatecode放入redis中
-        redisTemplate.opsForValue().set("user:login:validatecode:"+code,validateCode,3, TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set("user:login:validatecode:"+validateCode,code,3, TimeUnit.MINUTES);
         validateCodeVo.setCodeKey(validateCode);
         validateCodeVo.setCodeValue("data:image/png;base64," +codeImage);
         return validateCodeVo;

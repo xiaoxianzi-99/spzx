@@ -1,6 +1,7 @@
 package com.manager.service;
 
 import com.model.dto.system.LoginDto;
+import com.model.entity.system.SysUser;
 import com.model.vo.system.LoginVo;
 
 /**
@@ -14,6 +15,12 @@ public interface SysUserService {
      * @return
      */
     public abstract LoginVo login(LoginDto loginDto) ;
+
+    /**
+     * 获取用户信息
+     * @return
+     */
+    public abstract SysUser getUserInfo(String token) ;
 
 }
 

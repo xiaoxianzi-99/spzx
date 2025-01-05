@@ -1,5 +1,7 @@
 package com.manager.service.impl;
 
+import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson.JSON;
 import com.manager.mapper.SysUserMapper;
 import com.manager.service.SysUserService;
 import com.model.dto.system.LoginDto;
@@ -11,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
-import com.alibaba.fastjson.JSON;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -28,9 +29,27 @@ public class SysUserServiceImpl implements SysUserService {
     @Autowired
     private RedisTemplate<String , String> redisTemplate ;
 
+    /**
+     * 获取用户数据
+     * @return
+     */
+    public  SysUser getUserInfo(String token) {
+        return null;
+    }
+
     @Override
     public LoginVo login(LoginDto loginDto) {
 
+
+        // 验证码校验
+        // 获取redis中key
+        String codeKey = loginDto.getCodekey();
+        String inputCaptcha = loginDto.getCaptcha();
+        String redisCaptcha = redisTemplate.opsForValue().get("user:login:validatecode:" + codeKey);
+        if(StrUtil.isEmpty(redisCaptcha)||!StrUtil.equalsIgnoreCase(redisCaptcha , inputCaptcha)) {
+            throw new BusinessException(ResultCodeEnum.VALIDATECODE_ERROR);
+        }
+        redisTemplate.delete("user:login:validatecode:" + codeKey);
         // 根据用户名查询用户
         SysUser sysUser = sysUserMapper.selectByUserName(loginDto.getUserName());
         if(sysUser == null) {
