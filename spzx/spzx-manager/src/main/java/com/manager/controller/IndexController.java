@@ -28,6 +28,19 @@ public class IndexController {
     private ValidateCodeService validateCodeService;
 
     /**
+     * 退出登录
+     * /admin/system/index/logout
+     * @param
+     * @return
+     */
+    @Operation(summary = "退出登录")
+    @GetMapping(value = "/logout")
+    public Result logout(@RequestHeader(name="token") String token) {
+
+        sysUserService.logout(token);
+        return Result.build(null,ResultCodeEnum.SUCCESS);
+    }
+    /**
      * 获取验证码
      * /admin/system/index/generateValidateCode
      * @param
@@ -57,7 +70,7 @@ public class IndexController {
     @Operation(summary = "获取用户信息")
     @GetMapping(value = "/userinfo")
     public Result<SysUser> getUserinfo(@RequestHeader(name="token") String token) {
-        SysUser sysUser = sysUserService.getUserinfo(token);
-        return Result.build(null,ResultCodeEnum.SUCCESS);
+        SysUser sysUser = sysUserService.getUserInfo(token);
+        return Result.build(sysUser,ResultCodeEnum.SUCCESS);
     }
 }

@@ -22,5 +22,7 @@ public interface SysUserService {
      */
     public abstract SysUser getUserInfo(String token) ;
 
+    public abstract void  logout(String token) ;
+
 }
 

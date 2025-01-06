@@ -33,8 +33,10 @@ public class SysUserServiceImpl implements SysUserService {
      * 获取用户数据
      * @return
      */
+    @Override
     public  SysUser getUserInfo(String token) {
-        return null;
+        String strUser = redisTemplate.opsForValue().get("user:login:" + token);
+        return JSON.parseObject(strUser, SysUser.class);
     }
 
     @Override
@@ -43,10 +45,10 @@ public class SysUserServiceImpl implements SysUserService {
 
         // 验证码校验
         // 获取redis中key
-        String codeKey = loginDto.getCodekey();
+        String codeKey = loginDto.getCodeKey();
         String inputCaptcha = loginDto.getCaptcha();
         String redisCaptcha = redisTemplate.opsForValue().get("user:login:validatecode:" + codeKey);
-        if(StrUtil.isEmpty(redisCaptcha)||!StrUtil.equalsIgnoreCase(redisCaptcha , inputCaptcha)) {
+        if(StrUtil.isEmpty(inputCaptcha)||!StrUtil.equalsIgnoreCase(redisCaptcha , inputCaptcha)) {
             throw new BusinessException(ResultCodeEnum.VALIDATECODE_ERROR);
         }
         redisTemplate.delete("user:login:validatecode:" + codeKey);
@@ -75,5 +77,10 @@ public class SysUserServiceImpl implements SysUserService {
 
         // 返回
         return loginVo;
+    }
+
+    @Override
+    public void logout(String token) {
+        redisTemplate.delete("user:login:" + token);
     }
 }
