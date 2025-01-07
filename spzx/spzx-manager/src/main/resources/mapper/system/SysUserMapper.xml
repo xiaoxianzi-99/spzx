@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.manager.mapper.SysUserMapper">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        id,username userName ,password,name,phone,avatar,description,status,create_time,update_time,is_deleted
+    </sql>
+
+    <select id="selectByUserName" resultType="com.model.entity.system.SysUser">
+        select <include refid="columns" /> from sys_user where username = #{userName} and is_deleted = 0
+    </select>
+
+</mapper>
