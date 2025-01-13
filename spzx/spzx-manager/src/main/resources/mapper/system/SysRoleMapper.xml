@@ -18,6 +18,10 @@
         </where>
         order by id desc
     </select>
+    <select id="findAllRoles" resultType="com.model.entity.system.SysRole">
+        select <include refid="columns"/> from sys_role
+        where is_deleted = 0
+    </select>
 
     <insert id="saveSysRole" parameterType="com.model.entity.system.SysRole">
         insert into sys_role(role_name,role_code,description,create_time,update_time,is_deleted)

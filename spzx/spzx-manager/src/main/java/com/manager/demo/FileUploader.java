@@ -22,10 +22,10 @@ public class FileUploader {
 
       // 判断是否存在指定的桶
       boolean found =
-              minioClient.bucketExists(BucketExistsArgs.builder().bucket("demo").build());
+              minioClient.bucketExists(BucketExistsArgs.builder().bucket("spzx-bucket").build());
       if (!found) {
         // 不存在则创建
-        minioClient.makeBucket(MakeBucketArgs.builder().bucket("demo").build());
+        minioClient.makeBucket(MakeBucketArgs.builder().bucket("spzx-bucket").build());
       } else {
         System.out.println("Bucket 'asiatrip' already exists.");
       }
@@ -33,7 +33,7 @@ public class FileUploader {
       FileInputStream fis = new FileInputStream("D://001.jpg") ;
 
       minioClient.putObject(
-              PutObjectArgs.builder().bucket("demo")
+              PutObjectArgs.builder().bucket("spzx-bucket")
                       .object("001.jpg")
                       .stream(fis, fis.available(),-1)
                       //.contentType("video.mp4")

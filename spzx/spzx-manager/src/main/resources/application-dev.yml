@@ -30,3 +30,8 @@ spzx:
       - /webjars/**
       - /v3/api-docs/**
       - /favicon.ico
+  minio:
+    endpointUrl: http://localhost:9001
+    accessKey: admin
+    secretKey: admin123456
+    bucketName: spzx-bucket

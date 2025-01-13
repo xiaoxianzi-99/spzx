@@ -10,6 +10,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 /**
  * @author 帕斯卡的芦苇
  * @date 2025/1/8
@@ -20,6 +22,13 @@ import org.springframework.web.bind.annotation.*;
 public class SysRoleController {
     @Autowired
     private SysRoleService sysRoleService;
+
+    @GetMapping("/findAllRoles/{userId}")
+    public Result< Map<String, Object>> findAllRoles(@PathVariable("userId") Long userId){
+
+        Map<String, Object> resultMap = sysRoleService.findAllRoles(userId);
+        return Result.build(resultMap,200,"查询成功");
+    }
 
     @DeleteMapping("/deleteSysRole/{id}")
     public Result deleteSysRole(@PathVariable("id") Long id){
