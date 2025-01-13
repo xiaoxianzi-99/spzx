@@ -8,6 +8,7 @@ import com.model.vo.common.ResultCodeEnum;
 import com.utils.AuthContextUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.lang.Nullable;
@@ -37,6 +38,12 @@ public class LoginAuthInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+        //knife4j的预检请求
+        val servletPath = request.getServletPath();
+        System.out.println(servletPath);
+
+
         String method = request.getMethod();
         //如果预检请求，直接返回true
         if(method.equalsIgnoreCase("OPTIONS")) {
@@ -70,18 +77,18 @@ public class LoginAuthInterceptor implements HandlerInterceptor {
         Result result = Result.build(null, ResultCodeEnum.LOGIN_AUTH);
         //处理中文乱码
         response.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         //返回响应
         PrintWriter printWriter = null;
         try {
-            printWriter =response.getWriter();
+            printWriter = response.getWriter();
+            //响应
+            printWriter.print(JSON.toJSONString(result));
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
             printWriter.close();
         }
-        printWriter.print(JSON.toJSONString(result));
-
     }
     /**
      * 拦截器==>在响应之前处理

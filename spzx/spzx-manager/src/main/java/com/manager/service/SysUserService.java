@@ -1,6 +1,8 @@
 package com.manager.service;
 
+import com.github.pagehelper.PageInfo;
 import com.model.dto.system.LoginDto;
+import com.model.dto.system.SysUserDto;
 import com.model.entity.system.SysUser;
 import com.model.vo.system.LoginVo;
 
@@ -24,5 +26,12 @@ public interface SysUserService {
 
     public abstract void  logout(String token) ;
 
+    PageInfo<SysUser> findByPage(SysUserDto sysUserDto, Integer pageNum, Integer pageSize);
+
+    void saveSysUser(SysUser sysUser);
+
+    void updateSysUser(SysUser sysUser);
+
+    void deleteSysUser(Long id);
 }
 

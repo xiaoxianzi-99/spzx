@@ -1,6 +1,7 @@
 package com.model.entity.system;
 
 import com.model.entity.base.BaseEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -16,5 +17,6 @@ public class SysUser extends BaseEntity {
     private String phone;
     private String avatar;
     private String description;
+    @Schema(description="状态,1:正常,0:禁用")
     private Integer status;
 }

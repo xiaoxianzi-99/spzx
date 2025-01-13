@@ -20,3 +20,13 @@ spring:
 mybatis:
   config-location: classpath:/mybatis-config.xml
   mapper-locations: classpath:/mapper/*/*.xml
+
+spzx:
+  auth:
+    noAuthUrls:
+      - /admin/system/index/login
+      - /admin/system/index/generateValidateCode
+      - /doc.html
+      - /webjars/**
+      - /v3/api-docs/**
+      - /favicon.ico
