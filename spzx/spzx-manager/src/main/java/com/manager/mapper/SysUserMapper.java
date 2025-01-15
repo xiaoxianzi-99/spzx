@@ -1,7 +1,10 @@
 package com.manager.mapper;
 
+import com.model.dto.system.SysUserDto;
 import com.model.entity.system.SysUser;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @author 帕斯卡的芦苇
@@ -15,4 +18,11 @@ public interface SysUserMapper {
      * @return
      */
     SysUser selectByUserName(String userName);
+
+    List<SysUser> findByPage(SysUserDto sysUserDto);
+
+    void saveSysUser(SysUser sysUser);
+    void updateSysUser(SysUser sysUser);
+
+    void deleteSysUser(Long id);
 }

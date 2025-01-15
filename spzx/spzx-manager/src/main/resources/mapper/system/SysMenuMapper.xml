@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.manager.mapper.SysMenuMapper">
+    <insert id="saveSysMenu">
+        insert into sys_menu(parent_id,title,component,sort_value,status)
+        values(#{parentId},#{title},#{component},#{sortValue},#{status})
+    </insert>
+    <update id="updateSysMenu">
+        update sys_menu set
+        <if test="title != null and title != ''">
+            title = #{title},
+        </if>
+        <if test="component != null and component != ''">
+            component = #{component},
+        </if>
+        <if test="sortValue != null and sortValue != ''">
+            sort_value = #{sortValue},
+        </if>
+        <if test="status == 0 and status == 1">
+            status = #{status},
+        </if>
+        update_time = now()
+        where id = #{id} and is_deleted = 0
+    </update>
+    <update id="deleteSysMenu">
+        update sys_menu set is_deleted = 1 and update_time=  now() where id = #{id}
+    </update>
+
+    <select id="findAllMenus" resultType="com.model.dto.system.SysMenu">
+        select id,parent_id,title,component,sort_value,status,create_time,update_time    from sys_menu
+        where is_deleted = 0
+        order by sort_value
+    </select>
+    <select id="findChildCount" resultType="java.lang.Integer">
+        select count(id) from sys_menu where parent_id = #{parentId} and is_deleted = 0
+    </select>
+</mapper>

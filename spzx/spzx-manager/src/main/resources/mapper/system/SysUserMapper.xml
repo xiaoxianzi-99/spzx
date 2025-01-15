@@ -4,11 +4,64 @@
 
     <!-- 用于select查询公用抽取的列 -->
     <sql id="columns">
-        id,username userName ,password,name,phone,avatar,description,status,create_time,update_time,is_deleted
+        id,username userName,password,name,phone,avatar,description,status,create_time,update_time,is_deleted
     </sql>
+    <insert id="saveSysUser">
+        insert into sys_user(username,password,name,phone,avatar,description,status)
+        values(#{userName},#{password},#{name},#{phone},#{avatar},#{description},#{status})
+    </insert>
+    <update id="updateSysUser">
+        update sys_user
+        <set>
+            <if test="userName != null and userName != ''">
+                username = #{userName},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="avatar != null and avatar != ''">
+                avatar = #{avatar},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+            update_time = now()
+        </set>
+        where id = #{id}
+    </update>
+    <update id="deleteSysUser">
+        update sys_user set is_deleted = 1 ,sys_user.update_time=now() where id = #{id}
+    </update>
 
     <select id="selectByUserName" resultType="com.model.entity.system.SysUser">
         select <include refid="columns" /> from sys_user where username = #{userName} and is_deleted = 0
     </select>
 
+    <select id="findByPage" resultType="com.model.entity.system.SysUser">
+        select <include refid="columns" /> from sys_user
+        <where>
+            <if test="keyword !=null and keyword!=''">
+                username like concat('%',#{keyword},'%')or
+                name like concat('%',#{keyword},'%')or
+                phone like concat('%',#{keyword},'%')
+            </if>
+            <if test="createTimeBegin !=null and createTimeBegin!=''">
+                and create_time >= #{createTimeBegin}
+            </if>
+            <if test="createTimeEnd !=null and createTimeEnd!=''">
+                and create_time &lt;= #{createTimeEnd}
+            </if>
+            and is_deleted = 0
+        </where>
+        order by id desc
+    </select>
 </mapper>

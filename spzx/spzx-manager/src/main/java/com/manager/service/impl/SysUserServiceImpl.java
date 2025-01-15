@@ -2,9 +2,12 @@ package com.manager.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.manager.mapper.SysUserMapper;
 import com.manager.service.SysUserService;
 import com.model.dto.system.LoginDto;
+import com.model.dto.system.SysUserDto;
 import com.model.entity.system.SysUser;
 import com.model.vo.common.ResultCodeEnum;
 import com.model.vo.system.LoginVo;
@@ -14,6 +17,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -82,5 +86,47 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public void logout(String token) {
         redisTemplate.delete("user:login:" + token);
+    }
+
+    @Override
+    public PageInfo<SysUser> findByPage(SysUserDto sysUserDto, Integer pageNum, Integer pageSize) {
+        //设置分页条件
+        PageHelper.startPage(pageNum, pageSize);
+        //查询用户列表
+        List<SysUser> sysUserList = sysUserMapper.findByPage(sysUserDto);
+        //封装分页结果
+        PageInfo<SysUser> pageInfo = new PageInfo<>(sysUserList);
+        return pageInfo;
+    }
+
+    @Override
+    public void saveSysUser(SysUser sysUser) {
+        //判断是否存在新增用户
+        SysUser user = sysUserMapper.selectByUserName(sysUser.getUserName());
+        if(user != null) {
+            throw new BusinessException(ResultCodeEnum.USER_NAME_IS_EXISTS);
+        }
+        //密码加密
+        String password = sysUser.getPassword();
+        String md5Password = DigestUtils.md5DigestAsHex(password.getBytes());
+        sysUser.setPassword(md5Password);
+        //状态赋值
+        sysUser.setStatus(1);
+        sysUserMapper.saveSysUser(sysUser);
+    }
+
+    @Override
+    public void updateSysUser(SysUser sysUser) {
+        //判断用户账号是否重复
+        SysUser user = sysUserMapper.selectByUserName(sysUser.getUserName());
+        if(user != null && !user.getId().equals(sysUser.getId())) {
+            throw new BusinessException(ResultCodeEnum.USER_NAME_IS_EXISTS);
+        }
+        sysUserMapper.updateSysUser(sysUser);
+    }
+
+    @Override
+    public void deleteSysUser(Long id) {
+        sysUserMapper.deleteSysUser(id);
     }
 }

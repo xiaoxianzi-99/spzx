@@ -20,3 +20,18 @@ spring:
 mybatis:
   config-location: classpath:/mybatis-config.xml
   mapper-locations: classpath:/mapper/*/*.xml
+
+spzx:
+  auth:
+    noAuthUrls:
+      - /admin/system/index/login
+      - /admin/system/index/generateValidateCode
+      - /doc.html
+      - /webjars/**
+      - /v3/api-docs/**
+      - /favicon.ico
+  minio:
+    endpointUrl: http://localhost:9001
+    accessKey: admin
+    secretKey: admin123456
+    bucketName: spzx-bucket

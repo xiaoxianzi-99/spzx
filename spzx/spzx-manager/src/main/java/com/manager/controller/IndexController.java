@@ -8,6 +8,7 @@ import com.model.vo.common.Result;
 import com.model.vo.common.ResultCodeEnum;
 import com.model.vo.system.LoginVo;
 import com.model.vo.system.ValidateCodeVo;
+import com.utils.AuthContextUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name="用户登录")
 @RestController
 @RequestMapping(value = "/admin/system/index")
-@CrossOrigin(allowCredentials = "true",originPatterns = "*",allowedHeaders = "*")
+//@CrossOrigin(allowCredentials = "true",originPatterns = "*",allowedHeaders = "*")
 public class IndexController {
     @Autowired
     private SysUserService sysUserService;
@@ -61,6 +62,7 @@ public class IndexController {
         return Result.build(loginVo , ResultCodeEnum.SUCCESS) ;
     }
 
+
     /**
      * 获取用户信息
      * /admin/system/index/userinfo
@@ -70,7 +72,8 @@ public class IndexController {
     @Operation(summary = "获取用户信息")
     @GetMapping(value = "/userinfo")
     public Result<SysUser> getUserinfo(@RequestHeader(name="token") String token) {
-        SysUser sysUser = sysUserService.getUserInfo(token);
-        return Result.build(sysUser,ResultCodeEnum.SUCCESS);
+        return Result.build(AuthContextUtil.get()  , ResultCodeEnum.SUCCESS) ;
+//        SysUser sysUser = sysUserService.getUserInfo(token);
+//        return Result.build(sysUser,ResultCodeEnum.SUCCESS);
     }
 }
