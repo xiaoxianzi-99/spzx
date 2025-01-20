@@ -16,14 +16,14 @@
         <if test="sortValue != null and sortValue != ''">
             sort_value = #{sortValue},
         </if>
-        <if test="status == 0 and status == 1">
+        <if test="status != null">
             status = #{status},
         </if>
         update_time = now()
         where id = #{id} and is_deleted = 0
     </update>
     <update id="deleteSysMenu">
-        update sys_menu set is_deleted = 1 and update_time=  now() where id = #{id}
+        update sys_menu set is_deleted = 1 , update_time=  now() where id = #{id}
     </update>
 
     <select id="findAllMenus" resultType="com.model.dto.system.SysMenu">
@@ -33,5 +33,13 @@
     </select>
     <select id="findChildCount" resultType="java.lang.Integer">
         select count(id) from sys_menu where parent_id = #{parentId} and is_deleted = 0
+    </select>
+    <select id="selectMenuByUserId" resultType="com.model.dto.system.SysMenu">
+        select m.id,m.parent_id,m.title,m.component,m.sort_value,m.status,m.create_time,m.update_time
+        from sys_menu m
+        inner join sys_role_menu rm on m.id = rm.menu_id
+        inner join sys_user_role ur on rm.role_id = ur.role_id
+        where ur.user_id = #{userId} and m.is_deleted = 0
+        order by m.sort_value
     </select>
 </mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.manager.mapper.BrandMapper">
+
+    <sql id="brandColum">
+        id,name,logo,create_time,update_time
+    </sql>
+    <update id="update">
+        update brand set
+            <if test="name != null">name = #{name}name = #{name},</if>
+            <if test="logo != null">logo = #{logo},</if>
+            update_time = now() where id = #{id}
+    </update>
+    <update id="deleteById">
+        update brand set is_deleted = 1 where id = #{id}
+    </update>
+    <select id="list" resultType="com.model.entity.product.Brand">
+        select <include refid="brandColum"/> from brand where is_deleted = 0 order by id desc
+    </select>
+    <select id="findAll" resultType="com.model.entity.product.Brand">
+        select <include refid="brandColum"/> from brand where is_deleted = 0
+    </select>
+    <insert id="save">
+        insert into brand(name,logo) values(#{name},#{logo})
+    </insert>
+</mapper>

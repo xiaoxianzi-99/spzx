@@ -31,7 +31,7 @@ spzx:
       - /v3/api-docs/**
       - /favicon.ico
   minio:
-    endpointUrl: http://localhost:9001
+    endpointUrl: http://localhost:9000
     accessKey: admin
     secretKey: admin123456
     bucketName: spzx-bucket

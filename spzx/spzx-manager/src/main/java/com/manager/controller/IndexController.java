@@ -1,5 +1,6 @@
 package com.manager.controller;
 
+import com.manager.service.SysMenuService;
 import com.manager.service.SysUserService;
 import com.manager.service.ValidateCodeService;
 import com.model.dto.system.LoginDto;
@@ -7,12 +8,15 @@ import com.model.entity.system.SysUser;
 import com.model.vo.common.Result;
 import com.model.vo.common.ResultCodeEnum;
 import com.model.vo.system.LoginVo;
+import com.model.vo.system.SysMenuVo;
 import com.model.vo.system.ValidateCodeVo;
 import com.utils.AuthContextUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author 帕斯卡的芦苇
@@ -27,7 +31,20 @@ public class IndexController {
     private SysUserService sysUserService;
     @Autowired
     private ValidateCodeService validateCodeService;
-
+    @Autowired
+    private SysMenuService sysMenuService;
+    /**
+     * 获取用户有的菜单
+     * /admin/system/index/menus
+     * @param
+     * @return
+     */
+    @GetMapping(value = "/menus")
+    public Result<List<SysMenuVo>> menus() {
+        //从线程变量中获取用户id
+        List<SysMenuVo> sysMenuVoList = sysMenuService.getMenus();
+        return Result.build(sysMenuVoList, ResultCodeEnum.SUCCESS);
+    }
     /**
      * 退出登录
      * /admin/system/index/logout

@@ -1,8 +1,11 @@
 package com.manager.helper;
 
 import com.model.dto.system.SysMenu;
+import com.model.vo.system.SysMenuVo;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -41,5 +44,22 @@ public class MenuHelper {
             }
         }
         return sysMenu;
+    }
+
+
+    public static List<SysMenuVo> buildMenus(List<SysMenu> menus) {
+        List<SysMenuVo> sysMenuVoListTree = new LinkedList<SysMenuVo>();
+        //便利
+        for (SysMenu sysMenu:menus){
+            SysMenuVo sysMenuVo = new SysMenuVo();
+            sysMenuVo.setTitle(sysMenu.getTitle());
+            sysMenuVo.setName(sysMenu.getComponent());
+            List<SysMenu> children = sysMenu.getChildren();
+            if(!CollectionUtils.isEmpty(children)){
+                sysMenuVo.setChildren(buildMenus(children));
+            }
+            sysMenuVoListTree.add(sysMenuVo);
+        }
+        return sysMenuVoListTree;
     }
 }
