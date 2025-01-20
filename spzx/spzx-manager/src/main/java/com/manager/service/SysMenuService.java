@@ -1,6 +1,7 @@
 package com.manager.service;
 
 import com.model.dto.system.SysMenu;
+import com.model.vo.system.SysMenuVo;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface SysMenuService {
     void updateSysMenu(SysMenu sysMenu);
 
     void deleteSysMenu(Long id);
+
+    List<SysMenuVo> getMenus();
 }

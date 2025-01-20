@@ -16,7 +16,7 @@ public class FileUploader {
       // 创建minioClient客户端
       MinioClient minioClient =
               MinioClient.builder()
-                      .endpoint("http://127.0.0.1:9001")
+                      .endpoint("http://127.0.0.1:9000")
                       .credentials("admin", "admin123456")
                       .build();
 

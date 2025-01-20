@@ -5,11 +5,14 @@ import com.manager.mapper.SysMenuMapper;
 import com.manager.service.SysMenuService;
 import com.model.dto.system.SysMenu;
 import com.model.vo.common.ResultCodeEnum;
+import com.model.vo.system.SysMenuVo;
 import com.service.exception.BusinessException;
+import com.utils.AuthContextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,5 +53,15 @@ public class SysMenuServiceImpl implements SysMenuService {
             throw new BusinessException(ResultCodeEnum.NODE_ERROR);
         }
         sysMenuMapper.deleteSysMenu(id);
+    }
+
+    @Override
+    public List<SysMenuVo> getMenus() {
+        Long userId = AuthContextUtil.get().getId();
+        List<SysMenu> sysMenuList = sysMenuMapper.selectMenuByUserId(userId);
+        if(CollectionUtils.isEmpty(sysMenuList))return null;
+        List<SysMenu> sysMenuListTree = MenuHelper.buildTree(sysMenuList);
+        List<SysMenuVo> sysMenuVoList = new ArrayList<>();
+        return MenuHelper.buildMenus(sysMenuListTree);
     }
 }
