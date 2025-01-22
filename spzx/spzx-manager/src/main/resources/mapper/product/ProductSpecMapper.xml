@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.manager.mapper.ProductSpecMapper">
+
+    <sql id="colum">
+        id,
+        spec_name,
+        spec_value,
+        create_time,
+        update_time
+    </sql>
+    <insert id="saveProductSpec">
+        insert into product_spec (id, spec_name, spec_value)
+        values (#{id}, #{specName}, #{specValue})
+    </insert>
+    <update id="updateProductSpec">
+        update product_spec set
+        <if test="specName != null">spec_name = #{specName},</if>
+        <if test="specValue != null">spec_value = #{specValue},</if>
+        update_time = now()
+        where id = #{id}
+        and is_deleted = 0
+    </update>
+    <update id="deleteProductSpec">
+        update product_spec set is_deleted = 1,update_time=now() where id = #{id}
+    </update>
+    <select id="listByPage" resultType="com.model.entity.product.ProductSpec">
+        select <include refid="colum"/> from product_spec where is_deleted = 0
+    </select>
+</mapper>

@@ -1,4 +1,4 @@
-package com.manager.helper;
+package com.manager.util;
 
 import com.model.dto.system.SysMenu;
 import com.model.vo.system.SysMenuVo;

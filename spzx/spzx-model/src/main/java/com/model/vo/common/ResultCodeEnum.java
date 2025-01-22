@@ -13,6 +13,7 @@ public enum ResultCodeEnum {
     VALIDATECODE_ERROR(202 , "验证码错误") ,
     LOGIN_AUTH(208 , "用户未登录"),
     USER_NAME_IS_EXISTS(209 , "用户名已经存在"),
+    CATEGOREBRAND_IS_EXISTS(210 , "该品牌已经绑定该分类"),
     SYSTEM_ERROR(9999 , "您的网络有问题请稍后重试"),
     NODE_ERROR( 217, "该节点下有子节点，不可以删除"),
     DATA_ERROR(204, "数据异常"),

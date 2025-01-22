@@ -7,7 +7,7 @@
     </sql>
     <update id="update">
         update brand set
-            <if test="name != null">name = #{name}name = #{name},</if>
+            <if test="name != null">name = #{name},</if>
             <if test="logo != null">logo = #{logo},</if>
             update_time = now() where id = #{id}
     </update>

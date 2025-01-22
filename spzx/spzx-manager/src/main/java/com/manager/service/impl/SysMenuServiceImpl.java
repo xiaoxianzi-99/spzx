@@ -1,6 +1,6 @@
 package com.manager.service.impl;
 
-import com.manager.helper.MenuHelper;
+import com.manager.util.MenuHelper;
 import com.manager.mapper.SysMenuMapper;
 import com.manager.service.SysMenuService;
 import com.model.dto.system.SysMenu;

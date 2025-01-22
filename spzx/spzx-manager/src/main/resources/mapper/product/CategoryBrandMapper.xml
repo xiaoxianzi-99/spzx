@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.manager.mapper.CategoryBrandMapper">
+    <!--保存数据-->
+    <insert id="save">
+        insert into category_brand(category_id,brand_id) values(#{categoryId},#{brandId})
+    </insert>
+    <update id="update">
+        update category_brand set
+        <if test="categoryId != null">category_id = #{categoryId},</if>
+        <if test="brandId != null">brand_id = #{brandId},</if>
+        update_time = now() where id = #{id}
+    </update>
+    <delete id="delete">
+        delete from category_brand where id = #{id}
+    </delete>
+    <!--根据条件分页查询-->
+    <select id="listCategoryBrand" resultType="com.model.entity.product.CategoryBrand">
+        select cb.id,cb.update_time, cb.brand_id,cb.category_id,c.name as category_name,b.name as brand_name,b.logo
+        from category_brand cb left join category c on cb.category_id = c.id
+        left join brand b on cb.brand_id = b.id
+        <where>
+            <if test="categoryId != null">
+                and cb.category_id = #{categoryId}
+            </if>
+            <if test="brandId != null">
+                and cb.brand_id = #{brandId}
+            </if>
+        </where>
+        order by cb.id desc
+    </select>
+</mapper>
