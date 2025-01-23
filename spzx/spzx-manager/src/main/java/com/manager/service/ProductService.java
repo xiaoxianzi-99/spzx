@@ -10,4 +10,16 @@ import com.model.entity.product.Product;
  **/
 public interface ProductService {
     PageInfo<Product> listByPage(Integer pageNum, Integer pageSize, ProductDto productDto);
+
+    void saveProduct(Product product);
+
+    Product getById(Long id);
+
+    void updateProduct(Product product);
+
+    void deleteProduct(Long id);
+
+    void updateAuditStatus(Long id, Integer auditStatus);
+
+    void updateStatus(Long id, Integer status);
 }

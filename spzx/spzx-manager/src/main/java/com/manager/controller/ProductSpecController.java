@@ -8,6 +8,8 @@ import com.model.vo.common.ResultCodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author 帕斯卡的芦苇
  * @date 2025/1/21
@@ -17,6 +19,11 @@ import org.springframework.web.bind.annotation.*;
 public class ProductSpecController {
     @Autowired
     ProductSpecService productSpecService;
+    @GetMapping("findAll")
+    public Result findAll() {
+        List<ProductSpec> list = productSpecService.findAll();
+        return Result.build(list , ResultCodeEnum.SUCCESS) ;
+    }
     @GetMapping("/listByPage/{pageNum}/{pageSize}")
     public Result<PageInfo<ProductSpec>> listByPage(@PathVariable("pageNum") Integer pageNum,
                                                     @PathVariable("pageSize") Integer pageSize){

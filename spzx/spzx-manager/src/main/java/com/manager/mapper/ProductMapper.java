@@ -13,4 +13,12 @@ import java.util.List;
 @Mapper
 public interface ProductMapper {
     List<Product> listByPage(ProductDto productDto);
+
+    void save(Product product);
+
+    Product selectById(Long id);
+
+    void update(Product product);
+
+    void delete(Long id);
 }

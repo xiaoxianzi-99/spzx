@@ -50,4 +50,10 @@ public class CategoryBrandServiceImpl implements CategoryBrandService {
     public void delete(Long id) {
         categoryBrandMapper.delete(id);
     }
+
+    @Override
+    public List<CategoryBrand> findBrandByCategoryId(Integer categoryId) {
+        List<CategoryBrand> categoryBrandList = categoryBrandMapper.findBrandByCategoryId(categoryId);
+        return categoryBrandList;
+    }
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.manager.mapper.ProductDetailsMapper">
+
+    <insert id="save">
+        insert into  product_details ( product_id, image_urls)
+        values (         #{productId},
+                         #{imageUrls})
+    </insert>
+    <update id="update">
+        update product_details set
+        <if test="productId != null and productId != ''">
+            product_id = #{productId},
+        </if>
+        <if test="imageUrls != null and imageUrls != ''">
+            image_urls = #{imageUrls},
+        </if>
+        update_time =  now()
+        where
+        id = #{id}
+    </update>
+    <update id="deleteByProductId">
+        update product_details set is_deleted = 1,update_time=now() where product_id = #{productId}
+    </update>
+    <select id="selectByProductId" resultType="com.model.entity.product.ProductDetails">
+        select id, product_id, image_urls
+        from product_details
+        where product_id = #{productId}
+    </select>
+</mapper>

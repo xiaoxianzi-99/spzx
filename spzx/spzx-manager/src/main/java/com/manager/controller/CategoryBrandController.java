@@ -9,6 +9,8 @@ import com.model.vo.common.ResultCodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author 帕斯卡的芦苇
  * @date 2025/1/20
@@ -19,6 +21,11 @@ public class CategoryBrandController {
     @Autowired
     private CategoryBrandService categoryBrandService;
 
+    @GetMapping("/findBrandByCategoryId/{categoryId}")
+    public Result<List<CategoryBrand>> findBrandByCategoryId(@PathVariable("categoryId")Integer categoryId){
+        List<CategoryBrand> categoryBrandList = categoryBrandService.findBrandByCategoryId(categoryId);
+        return Result.build(categoryBrandList,ResultCodeEnum.SUCCESS);
+    }
     @GetMapping("/list/{pageNum}/{pageSize}")
     public Result<PageInfo<CategoryBrand>> listCategoryBrand(@PathVariable("pageNum") Integer pageNum,
                                                              @PathVariable("pageSize") Integer pageSize,

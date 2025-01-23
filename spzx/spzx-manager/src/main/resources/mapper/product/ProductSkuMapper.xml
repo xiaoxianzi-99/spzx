@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.manager.mapper.ProductSkuMapper">
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into product_sku (sku_code, sku_name, product_id, thumb_img, sale_price, market_price, cost_price,
+                                 stock_num, sale_num, sku_spec, weight, volume, status)
+        values (#{skuCode},
+                #{skuName},
+                #{productId},
+                #{thumbImg},
+                #{salePrice},
+                #{marketPrice},
+                #{costPrice},
+                #{stockNum},
+                #{skuSpec},
+                #{weight},
+                #{volume},
+                #{status},
+                #{saleNum})
+    </insert>
+    <update id="update">
+        update product_sku set
+        <if test="skuCode != null and skuCode != ''">
+            sku_code = #{skuCode},
+        </if>
+        <if test="skuName != null and skuName != ''">
+            sku_name = #{skuName},
+        </if>
+        <if test="productId != null and productId != ''">
+            product_id = #{productId},
+        </if>
+        <if test="thumbImg != null and thumbImg != ''">
+            thumb_img = #{thumbImg},
+        </if>
+        <if test="salePrice != null and salePrice != ''">
+            sale_price = #{salePrice},
+        </if>
+        <if test="marketPrice != null and marketPrice != ''">
+            market_price = #{marketPrice},
+        </if>
+        <if test="costPrice != null and costPrice != ''">
+            cost_price = #{costPrice},
+        </if>
+        <if test="stockNum != null and stockNum != ''">
+            stock_num = #{stockNum},
+        </if>
+        <if test="skuSpec != null and skuSpec != ''">
+            sku_spec = #{skuSpec},
+        </if>
+        <if test="weight != null and weight != ''">
+            weight = #{weight},
+        </if>
+        <if test="volume != null and volume != ''">
+            volume = #{volume},
+        </if>
+        <if test="status != null and status != ''">
+            status = #{status},
+        </if>
+        update_time = now()
+        where
+        id = #{id}
+    </update>
+    <update id="deleteByProductId">
+        update product_sku set is_deleted = 1, update_time = now() where product_id = #{productId}
+    </update>
+    <select id="selectByProductId" resultType="com.model.entity.product.ProductSku">
+        select id,
+               sku_code,
+               sku_name,
+               product_id,
+               thumb_img,
+               sale_price,
+               market_price,
+               cost_price,
+               stock_num,
+               sale_num,
+               sku_spec,
+               weight,
+               volume,
+               status,
+               create_time,
+               update_time,
+               is_deleted
+        from product_sku
+        where product_id = #{productId}
+    </select>
+</mapper>

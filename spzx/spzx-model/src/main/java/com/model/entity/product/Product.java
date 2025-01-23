@@ -1,13 +1,16 @@
 package com.model.entity.product;
 
+import com.model.entity.base.BaseEntity;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * @author 帕斯卡的芦苇
  * @date 2025/1/22
  **/
 @Data
-public class Product {
+public class Product extends BaseEntity {
     private String name;					// 商品名称
     private Long brandId;					// 品牌ID
     private Long category1Id;				// 一级分类id
@@ -25,4 +28,7 @@ public class Product {
     private String category1Name;			// 一级分类
     private String category2Name;			// 二级分类
     private String category3Name;			// 三级分类
+
+    private List<ProductSku> productSkuList;		// sku列表集合
+    private String detailsImageUrls;				// 图片详情列表
 }

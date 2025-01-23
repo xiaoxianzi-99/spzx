@@ -27,4 +27,7 @@
     <select id="listByPage" resultType="com.model.entity.product.ProductSpec">
         select <include refid="colum"/> from product_spec where is_deleted = 0
     </select>
+    <select id="findAll" resultType="com.model.entity.product.ProductSpec">
+        select <include refid="colum"/> from product_spec where is_deleted = 0
+    </select>
 </mapper>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.manager.mapper.ProductUnitMapper">
+    <select id="findAll" resultType="com.model.entity.product.ProductUnit">
+        select id, name, create_time, update_time, is_deleted from product_unit
+        where is_deleted = 0
+    </select>
+</mapper>
