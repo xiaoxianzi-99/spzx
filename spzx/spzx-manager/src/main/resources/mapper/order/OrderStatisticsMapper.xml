@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.manager.mapper.OrderStatisticsMapper">
+
+    <insert id="insert">
+        insert into order_statistics (total_amount, total_num, order_date)
+        values (#{totalAmount}, #{totalNum}, #{orderDate})
+    </insert>
+    <select id="selectOrderStatisticsList" resultType="com.model.entity.order.OrderStatistics">
+        select id,
+               province_code,
+               order_date,
+               total_amount,
+               total_num,
+               create_time,
+               update_time,
+               is_deleted
+        from order_statistics
+        <where>
+            <if test="createTimeBegin != null and createTimeBegin != ''">
+                and order_date >= #{createTimeBegin}
+            </if>
+            <if test="createTimeEnd != null and createTimeEnd != ''">
+                and order_date &lt;= #{createTimeEnd}
+            </if>
+        </where>
+        order by order_date
+    </select>
+</mapper>

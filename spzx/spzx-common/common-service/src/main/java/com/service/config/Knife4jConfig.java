@@ -34,4 +34,11 @@ public class Knife4jConfig {
                         .description("尚品甑选API接口文档")
                         .contact(new Contact().name("帕斯卡的芦苇"))); // 设定作者
     }
+    @Bean
+    public GroupedOpenApi webApi() {      // 创建了一个api接口的分组
+        return GroupedOpenApi.builder()
+                .group("web-api")         // 分组名称
+                .pathsToMatch("/api/**")  // 接口请求路径规则
+                .build();
+    }
 }

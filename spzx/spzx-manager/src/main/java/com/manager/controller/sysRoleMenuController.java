@@ -4,6 +4,7 @@ import com.manager.service.SysRoleMenuService;
 import com.model.dto.system.AssginMenuDto;
 import com.model.vo.common.Result;
 import com.model.vo.common.ResultCodeEnum;
+import common.log.annotation.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,7 @@ import java.util.Map;
 public class sysRoleMenuController {
     @Autowired
     private SysRoleMenuService sysRoleMenuService;
+    @Log(title = "角色分配菜单",businessType = 2)
     @PostMapping("/doAssign")
     public Result doAssign(@RequestBody AssginMenuDto  assginMenuDto){
         sysRoleMenuService.doAssign(assginMenuDto);

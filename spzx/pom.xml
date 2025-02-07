@@ -12,6 +12,8 @@
         <module>spzx-common</module>
         <module>spzx-model</module>
         <module>spzx-manager</module>
+        <module>spzx-common/common-log</module>
+        <module>spzx-service</module>
     </modules>
 
     <!-- 指定父工程 -->
@@ -29,6 +31,9 @@
         <lombok.version>1.18.20</lombok.version>
         <mybatis.version>3.0.1</mybatis.version>
         <mysql.version>8.0.30</mysql.version>
+        <cloud.version>2022.0.2</cloud.version>
+        <alibaba.version>2022.0.0.0-RC2</alibaba.version>
+        <alipay.version>4.8.73.ALL</alipay.version>
     </properties>
 
     <!-- 管理依赖，版本锁定 -->
@@ -69,6 +74,21 @@
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
 
         </dependencies>
 

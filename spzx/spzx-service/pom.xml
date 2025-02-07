@@ -9,20 +9,28 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>spzx-manager</artifactId>
+    <artifactId>spzx-service</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>service-product</module>
+    </modules>
 
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
-
-    <dependencies><!-- spring boot web开发所需要的起步依赖 -->
+    <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- redis的起步依赖 -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <groupId>com.pei</groupId>
+            <artifactId>common-service</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <!-- mybatis的起步依赖 -->
@@ -37,16 +45,10 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
-        <!-- common-service依赖 -->
-        <dependency>
-            <groupId>com.pei</groupId>
-            <artifactId>common-service</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <dependency>
@@ -54,15 +56,11 @@
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.4.3</version>
         </dependency>
+
+        <!-- 服务注册 -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>com.pei</groupId>
-            <artifactId>common-log</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
     </dependencies>
 </project>
