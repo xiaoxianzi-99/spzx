@@ -9,9 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>service-product</artifactId>
-
-
+    <artifactId>service-user</artifactId>
     <dependencies>
         <!-- redis的起步依赖 -->
         <dependency>

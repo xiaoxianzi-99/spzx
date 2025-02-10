@@ -1,17 +1,15 @@
-package com.product;
+package com.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
 
 /**
  * @author 帕斯卡的芦苇
- * @date 2025/2/7
+ * @date 2025/2/8
  **/
 @SpringBootApplication
-@EnableCaching
-public class ProductApplication {
+public class GatewayApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ProductApplication.class, args);
+        SpringApplication.run(GatewayApplication.class, args);
     }
 }

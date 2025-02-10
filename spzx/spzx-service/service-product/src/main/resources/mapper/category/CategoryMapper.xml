@@ -23,4 +23,10 @@ is_deleted
         and is_deleted = 0
         order by order_num
     </select>
+    <select id="findAll" resultType="com.model.entity.product.Category">
+        select <include refid="columns"/> from category
+        where is_deleted = 0
+        and status = 1
+        order by order_num
+    </select>
 </mapper>

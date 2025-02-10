@@ -14,4 +14,6 @@ public interface CategoryService {
      * @return
      */
     List<Category> findOneCategory();
+
+    List<Category> findCategoryTree();
 }
