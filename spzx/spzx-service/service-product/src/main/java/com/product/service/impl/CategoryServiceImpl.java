@@ -26,7 +26,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    @Cacheable(value = "category" , key = "'all'")
+    @Cacheable(value = "category", key = "'all'")
     public List<Category> findCategoryTree() {
         List<Category> categoryList = categoryMapper.findAll();
         //全部一级分类

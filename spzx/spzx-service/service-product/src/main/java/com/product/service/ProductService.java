@@ -1,6 +1,9 @@
 package com.product.service;
 
+import com.github.pagehelper.PageInfo;
+import com.model.dto.product.ProductSkuDto;
 import com.model.entity.product.ProductSku;
+import com.model.vo.product.ProductItemVo;
 
 import java.util.List;
 
@@ -14,4 +17,8 @@ public interface ProductService {
      * @return
      */
     List<ProductSku> findProductSkuBySale();
+
+    PageInfo<ProductSku> findByPage(Integer page, Integer limit, ProductSkuDto productSkuDto);
+
+    ProductItemVo item(Long skuId);
 }

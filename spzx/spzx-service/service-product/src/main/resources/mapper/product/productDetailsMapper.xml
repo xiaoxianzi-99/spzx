@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.product.mapper.ProductDetailsMapper">
+    <sql id="columns">
+        id,product_id,image_urls,create_time,update_time,is_deleted
+    </sql>
+    <select id="getByProductId" resultType="com.model.entity.product.ProductDetails">
+        select
+        <include refid="columns"/>
+        from product_details
+        where product_id = #{productId}
+    </select>
+</mapper>

@@ -31,7 +31,7 @@
     </select>
     <select id="findBrandByCategoryId" resultType="com.model.entity.product.CategoryBrand">
         select
-            b.*
+            cb.brand_id as brandId,b.name as brandName,b.logo,cb.category_id as categoryId
         from category_brand cb
                  inner join brand b  on b.id = cb.brand_id
         where cb.category_id = #{categoryId} and cb.is_deleted = 0

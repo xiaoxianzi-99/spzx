@@ -13,11 +13,12 @@
                 #{marketPrice},
                 #{costPrice},
                 #{stockNum},
+                #{saleNum},
                 #{skuSpec},
                 #{weight},
                 #{volume},
-                #{status},
-                #{saleNum})
+                #{status}
+            )
     </insert>
     <update id="update">
         update product_sku set
