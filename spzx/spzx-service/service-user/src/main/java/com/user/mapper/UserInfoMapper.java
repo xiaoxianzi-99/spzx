@@ -12,4 +12,6 @@ public interface UserInfoMapper {
     UserInfo getByUsername(String username);
 
     void save(UserInfo userInfo);
+
+    void updateById(UserInfo userInfo);
 }

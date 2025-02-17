@@ -32,6 +32,48 @@
                 #{lastLoginTime},
                 #{status})
     </insert>
+    <update id="updateById">
+        update user_info set
+        <if test="username != null and username != ''">
+            username = #{username},
+        </if>
+        <if test="password != null and password != ''">
+            password = #{password},
+        </if>
+        <if test="nickName != null and nickName != ''">
+            nick_name = #{nickName},
+        </if>
+        <if test="avatar != null and avatar != ''">
+            avatar = #{avatar},
+        </if>
+        <if test="sex != null">
+            sex = #{sex},
+        </if>
+        <if test="phone != null and phone != ''">
+            phone = #{phone},
+        </if>
+        <if test="memo != null and memo != ''">
+            memo = #{memo},
+        </if>
+        <if test="openId != null and openId != ''">
+            open_id = #{openId},
+        </if>
+        <if test="unionId != null and unionId != ''">
+            union_id = #{unionId},
+        </if>
+        <if test="lastLoginIp != null and lastLoginIp != ''">
+            last_login_ip = #{lastLoginIp},
+        </if>
+        <if test="lastLoginTime != null">
+            last_login_time = #{lastLoginTime},
+        </if>
+        <if test="status != null">
+            status = #{status},
+        </if>
+        update_time = now()
+        where
+        id = #{id}
+    </update>
 
     <select id="getByUsername" resultType="com.model.entity.user.UserInfo">
         select <include refid="columns" />

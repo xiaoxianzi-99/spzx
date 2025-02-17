@@ -1,16 +1,25 @@
 package com.user.service.impl;
 
 import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson.JSON;
+import com.model.dto.user.UserLoginDto;
 import com.model.dto.user.UserRegisterDto;
 import com.model.entity.user.UserInfo;
 import com.model.vo.common.ResultCodeEnum;
+import com.model.vo.user.UserInfoVo;
 import com.service.exception.BusinessException;
+import com.service.utils.AuthContextUtil;
 import com.user.mapper.UserInfoMapper;
 import com.user.service.UserInfoService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+
+import java.util.Date;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author 帕斯卡的芦苇
@@ -51,8 +60,56 @@ public class UserInfoServiceImpl implements UserInfoService {
         userInfo.setPhone(username);
         userInfo.setStatus(1);
         userInfo.setSex(0);
-        userInfo.setAvatar("http://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83eoj0hHXhgJNOTSOFsS4uZs8x1ConecaVOB8eIl115xmJZcT4oCicvia7wMEufibKtTLqiaJeanU2Lpg3w/132");
+        userInfo.setAvatar("https://www.mianshiya.com/assets/notLoginUser.png");
         userInfoMapper.save(userInfo);
         redisTemplate.delete("phone:code:" + username);
+    }
+
+    /**
+     * 登录
+     * @param userLoginDto
+     * @param ip
+     * @return
+     */
+    @Override
+    public Object login(UserLoginDto userLoginDto, String ip) {
+        String username = userLoginDto.getUsername();
+        String password = userLoginDto.getPassword();
+        if(StrUtil.hasBlank(username, password)) {
+            throw new BusinessException(ResultCodeEnum.DATA_ERROR);
+        }
+        UserInfo userInfo = userInfoMapper.getByUsername(username);
+        if(null == userInfo) {
+            throw new BusinessException(ResultCodeEnum.LOGIN_ERROR);
+        }
+        //校验密码
+        String md5InputPassword = DigestUtils.md5DigestAsHex(password.getBytes());
+        if(!md5InputPassword.equals(userInfo.getPassword())) {
+            throw new BusinessException(ResultCodeEnum.LOGIN_ERROR);
+        }
+        //校验是否被禁用
+        if(userInfo.getStatus() == 0) {
+            throw new BusinessException(ResultCodeEnum.ACCOUNT_STOP);
+        }
+
+        //更新登录信息
+        userInfo.setLastLoginIp(ip);
+        userInfo.setLastLoginTime(new Date());
+        userInfoMapper.updateById(userInfo);
+        String token = UUID.randomUUID().toString().replaceAll("-", "");
+        redisTemplate.opsForValue().set("user:login:" + token, JSON.toJSONString(userInfo), 30, TimeUnit.DAYS);
+        return token;
+    }
+
+    /**
+     * @param token
+     * @return
+     */
+    @Override
+    public UserInfoVo getCurrentUserInfo(String token) {
+        UserInfo userInfo = AuthContextUtil.getUserInfo();
+        UserInfoVo userInfoVo = new UserInfoVo();
+        BeanUtils.copyProperties(userInfo, userInfoVo);
+        return userInfoVo ;
     }
 }

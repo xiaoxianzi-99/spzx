@@ -33,6 +33,7 @@ public class SmsServiceImpl implements SmsService {
         }
 
         String validateCode = RandomStringUtils.randomNumeric(4);      // 生成验证码
+        System.out.println(validateCode);
         redisTemplate.opsForValue().set("phone:code:" + phone , validateCode , 5 , TimeUnit.MINUTES);
         sendSms(phone , validateCode) ;
     }
@@ -54,19 +55,8 @@ public class SmsServiceImpl implements SmsService {
         bodys.put("phone_number", phone);
 
         try {
-            /**
-             * 重要提示如下:
-             * HttpUtils请从
-             * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/src/main/java/com/aliyun/api/gateway/demo/util/HttpUtils.java
-             * 下载
-             *
-             * 相应的依赖请参照
-             * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/pom.xml
-             */
             HttpResponse response = HttpUtils.doPost(host, path, method, headers, querys, bodys);
             System.out.println(response.toString());
-            //获取response的body
-            //System.out.println(EntityUtils.toString(response.getEntity()));
         } catch (Exception e) {
             e.printStackTrace();
             throw new BusinessException(ResultCodeEnum.SYSTEM_ERROR);
