@@ -16,6 +16,9 @@
         <module>spzx-service</module>
         <module>spzx-server-gateway</module>
         <module>spzx-service-client</module>
+        <module>spzx-service-client/service-cart-client</module>
+        <module>spzx-service-client/service-user-client</module>
+        <module>spzx-service-client/service-order-client</module>
     </modules>
 
     <!-- 指定父工程 -->

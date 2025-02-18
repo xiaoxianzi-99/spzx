@@ -20,6 +20,13 @@
     create_time,
     update_time
     </sql>
+    <update id="updateSale">
+        update product_sku
+        set sale_num    = sale_num + #{num},
+            stock_num   = stock_num - #{num},
+            update_time = now()
+        where id = #{skuId}
+    </update>
     <select id="findProductSkuBySale" resultType="com.model.entity.product.ProductSku">
         select sku.id,
                sku.sku_code,

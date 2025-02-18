@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pay.mapper.PaymentInfoMapper">
+    <sql id="columns">
+        id,user_id,order_no,pay_type,out_trade_no,amount,content,payment_status,callback_time,callback_content,create_time,update_time,is_deleted
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into payment_info (id,
+                                  user_id,
+                                  order_no,
+                                  pay_type,
+                                  out_trade_no,
+                                  amount,
+                                  content,
+                                  payment_status,
+                                  callback_time,
+                                  callback_content)
+        values (#{id},
+                #{userId},
+                #{orderNo},
+                #{payType},
+                #{outTradeNo},
+                #{amount},
+                #{content},
+                #{paymentStatus},
+                #{callbackTime},
+                #{callbackContent})
+    </insert>
+    <update id="updateById">
+        update payment_info set
+        <if test="userId != null and userId != ''">
+            user_id = #{userId},
+        </if>
+        <if test="orderNo != null and orderNo != ''">
+            order_no = #{orderNo},
+        </if>
+        <if test="payType != null">
+            pay_type = #{payType},
+        </if>
+        <if test="outTradeNo != null and outTradeNo != ''">
+            out_trade_no = #{outTradeNo},
+        </if>
+        <if test="amount != null and amount != ''">
+            amount = #{amount},
+        </if>
+        <if test="content != null and content != ''">
+            content = #{content},
+        </if>
+        <if test="paymentStatus != null">
+            payment_status = #{paymentStatus},
+        </if>
+        <if test="callbackTime != null">
+            callback_time = #{callbackTime},
+        </if>
+        <if test="callbackContent != null and callbackContent != ''">
+            callback_content = #{callbackContent},
+        </if>
+        update_time =  now()
+        where
+        id = #{id}
+    </update>
+    <select id="getByOrderNo" resultType="com.model.entity.pay.PaymentInfo">
+        select
+        <include refid="columns"/>
+        from payment_info
+        where
+        order_no = #{orderNo}
+    </select>
+</mapper>

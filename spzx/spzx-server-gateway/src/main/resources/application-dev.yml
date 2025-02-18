@@ -37,6 +37,14 @@ spring:
           uri: lb://service-cart
           predicates:
             - Path=/api/order/cart/**
+        - id: service-order
+          uri: lb://service-order
+          predicates:
+            - Path=/api/order/orderInfo/**
+        - id: service-pay
+          uri: lb://service-pay
+          predicates:
+            - Path=/api/order/alipay/**
   data:
     redis:
       host: localhost

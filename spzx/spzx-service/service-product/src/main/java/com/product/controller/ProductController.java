@@ -2,6 +2,7 @@ package com.product.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.model.dto.product.ProductSkuDto;
+import com.model.dto.product.SkuSaleDto;
 import com.model.entity.product.ProductSku;
 import com.model.vo.common.Result;
 import com.model.vo.common.ResultCodeEnum;
@@ -9,10 +10,9 @@ import com.model.vo.product.ProductItemVo;
 import com.product.service.ProductService;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author 帕斯卡的芦苇
@@ -49,5 +49,15 @@ public class ProductController {
     @GetMapping("/getBySkuId/{skuId}")
     public ProductSku getBySkuId(@PathVariable Long skuId) {
         return productService.getBySkuId(skuId);
+    }
+
+    /**
+     * 更新销量
+     * @param skuSaleDtoList
+     * @return
+     */
+    @PostMapping("/updateSkuSaleNum")
+    public Boolean updateSkuSaleNum(@RequestBody List<SkuSaleDto> skuSaleDtoList) {
+        return productService.updateSkuSaleNum(skuSaleDtoList);
     }
 }

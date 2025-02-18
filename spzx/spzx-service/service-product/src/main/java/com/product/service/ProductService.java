@@ -2,6 +2,7 @@ package com.product.service;
 
 import com.github.pagehelper.PageInfo;
 import com.model.dto.product.ProductSkuDto;
+import com.model.dto.product.SkuSaleDto;
 import com.model.entity.product.ProductSku;
 import com.model.vo.product.ProductItemVo;
 
@@ -23,4 +24,6 @@ public interface ProductService {
     ProductItemVo item(Long skuId);
 
     ProductSku getBySkuId(Long skuId);
+
+    Boolean updateSkuSaleNum(List<SkuSaleDto> skuSaleDtoList);
 }

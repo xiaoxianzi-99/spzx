@@ -1,6 +1,7 @@
 package com.user.service.impl;
 
 import com.model.entity.user.UserAddress;
+import com.service.utils.AuthContextUtil;
 import com.user.mapper.UserAddressMapper;
 import com.user.service.UserAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,17 @@ public class UserAddressServiceImpl implements UserAddressService {
      */
     @Override
     public List<UserAddress> findUserAddressList() {
-        return null;
+        Long userId = AuthContextUtil.getUserInfo().getId();
+        return userAddressMapper.findByUserId(userId);
+    }
+
+    /**
+     * 获取地址信息
+     * @param id
+     * @return
+     */
+    @Override
+    public UserAddress getById(Long id) {
+        return userAddressMapper.getById(id);
     }
 }

@@ -4,9 +4,9 @@ import com.model.entity.user.UserAddress;
 import com.model.vo.common.Result;
 import com.model.vo.common.ResultCodeEnum;
 import com.user.service.UserAddressService;
-import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,5 +26,9 @@ public class UserAddressController {
     public Result<List<UserAddress>> findUserAddressList() {
         List<UserAddress> list = userAddressService.findUserAddressList();
         return Result.build(list , ResultCodeEnum.SUCCESS) ;
+    }
+    @GetMapping("getUserAddress/{id}")
+    public UserAddress getUserAddress(@PathVariable Long id) {
+        return userAddressService.getById(id);
     }
 }

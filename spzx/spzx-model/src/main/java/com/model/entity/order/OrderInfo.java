@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author 帕斯卡的芦苇
@@ -35,4 +36,5 @@ public class OrderInfo extends BaseEntity {
     private String remark;
     private Date cancelTime;
     private String cancelReason;
+    private List <OrderItem> orderItemList;
 }

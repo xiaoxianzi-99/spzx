@@ -1,6 +1,9 @@
 package com.user.mapper;
 
+import com.model.entity.user.UserAddress;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @author 帕斯卡的芦苇
@@ -8,4 +11,7 @@ import org.apache.ibatis.annotations.Mapper;
  **/
 @Mapper
 public interface UserAddressMapper {
+    List<UserAddress> findByUserId(Long userId);
+
+    UserAddress getById(Long id);
 }
