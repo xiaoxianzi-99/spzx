@@ -62,4 +62,16 @@ public class AlipayController {
 
         return "failure";
     }
+    /**
+     * 退款实现
+     * @param orderNo
+     * @return
+     */
+    @GetMapping("/refund")
+    public Result<Boolean> refund(String orderNo){
+
+        boolean flag=alipayService.refund(orderNo);
+
+        return Result.build(flag,ResultCodeEnum.SUCCESS);
+    }
 }

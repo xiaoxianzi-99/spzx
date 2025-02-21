@@ -227,7 +227,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         // 更新订单状态
         OrderInfo orderInfo = orderInfoMapper.getByOrderNo(orderNo);
         orderInfo.setOrderNo(orderNo);
-        orderInfo.setOrderStatus(1);
+        orderInfo.setOrderStatus(orderStatus);
         orderInfo.setPayType(orderStatus);
         orderInfo.setPaymentTime(new Date());
         orderInfoMapper.updateById(orderInfo);
@@ -239,4 +239,5 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         orderLog.setNote("支付宝支付成功");
         orderLogMapper.save(orderLog);
     }
+
 }

@@ -6,4 +6,6 @@ package com.pay.service;
  **/
 public interface AlipayService {
     String submitAlipay(String orderNo);
+
+    boolean refund(String orderNo);
 }
